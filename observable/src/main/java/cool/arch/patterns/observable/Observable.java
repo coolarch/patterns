@@ -12,6 +12,14 @@ package cool.arch.patterns.observable;
  * specific language governing permissions and limitations under the License. #L%
  */
 
-public interface Observable {
+public interface Observable<T> {
+
+	void addObserver(Observer<T> observer);
+
+	void removeObserver(Observer<T> observer);
+
+	void clear();
+	
+	Class<T> getPublishedType();
 
 }
