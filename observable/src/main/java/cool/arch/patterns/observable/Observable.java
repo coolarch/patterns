@@ -19,7 +19,7 @@ public interface Observable<T> {
 	void removeObserver(Observer<T> observer);
 
 	void clear();
-	
+
 	Class<T> getPublishedType();
 
 }
