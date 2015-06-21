@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cool.arch.patterns.observable;
+package cool.arch.patterns.observer;
 
 /*
  * #%L Patterns - Observable %% Copyright (C) 2015 CoolArch %% Licensed to the Apache Software

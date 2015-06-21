@@ -12,7 +12,6 @@ package cool.arch.patterns.observer;
  * specific language governing permissions and limitations under the License. #L%
  */
 
-
 public interface Observer<T> {
 
 	void onPublished(T published);

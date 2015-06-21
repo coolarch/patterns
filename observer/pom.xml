@@ -6,9 +6,9 @@
 		<artifactId>patterns</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>observable</artifactId>
+	<artifactId>observer</artifactId>
 	<packaging>jar</packaging>
-	<name>Patterns - Observable</name>
+	<name>Patterns - Observer</name>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
