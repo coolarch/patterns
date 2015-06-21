@@ -27,6 +27,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import cool.arch.patterns.observer.NotifyableObservable;
+import cool.arch.patterns.observer.Observer;
+
 /**
  * 
  */
@@ -50,7 +53,7 @@ public class NotifyableObservableTest {
 
 	/**
 	 * Test method for
-	 * {@link cool.arch.patterns.observable.NotifyableObservable#notifyObservers()}.
+	 * {@link cool.arch.patterns.observer.NotifyableObservable#notifyObservers()}.
 	 */
 	@Test
 	public final void testNotifyObservers() {
@@ -77,7 +80,7 @@ public class NotifyableObservableTest {
 
 	/**
 	 * Test method for
-	 * {@link cool.arch.patterns.observable.NotifyableObservable#notifyObservers(java.lang.Object)}
+	 * {@link cool.arch.patterns.observer.NotifyableObservable#notifyObservers(java.lang.Object)}
 	 * .
 	 */
 	@Test
@@ -104,7 +107,7 @@ public class NotifyableObservableTest {
 
 	/**
 	 * Test method for
-	 * {@link cool.arch.patterns.observable.NotifyableObservable#create(java.lang.Class)}.
+	 * {@link cool.arch.patterns.observer.NotifyableObservable#create(java.lang.Class)}.
 	 */
 	@Test
 	public final void testCreate() {
@@ -113,7 +116,7 @@ public class NotifyableObservableTest {
 
 	/**
 	 * Test method for
-	 * {@link cool.arch.patterns.observable.Observable#addObserver(cool.arch.patterns.observable.Observer)}
+	 * {@link cool.arch.patterns.observer.Observable#addObserver(cool.arch.patterns.observer.Observer)}
 	 * .
 	 */
 	@Test
@@ -136,7 +139,7 @@ public class NotifyableObservableTest {
 
 	/**
 	 * Test method for
-	 * {@link cool.arch.patterns.observable.Observable#removeObserver(cool.arch.patterns.observable.Observer)}
+	 * {@link cool.arch.patterns.observer.Observable#removeObserver(cool.arch.patterns.observer.Observer)}
 	 * .
 	 */
 	@Test
@@ -164,7 +167,7 @@ public class NotifyableObservableTest {
 	}
 
 	/**
-	 * Test method for {@link cool.arch.patterns.observable.Observable#clear()}.
+	 * Test method for {@link cool.arch.patterns.observer.Observable#clear()}.
 	 */
 	@Test
 	public final void testClear() {
@@ -188,7 +191,7 @@ public class NotifyableObservableTest {
 	}
 
 	/**
-	 * Test method for {@link cool.arch.patterns.observable.Observable#getPublishedType()}.
+	 * Test method for {@link cool.arch.patterns.observer.Observable#getPublishedType()}.
 	 */
 	@Test
 	public final void testGetPublishedType() {

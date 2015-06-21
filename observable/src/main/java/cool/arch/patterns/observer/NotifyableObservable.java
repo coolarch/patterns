@@ -1,4 +1,4 @@
-package cool.arch.patterns.observable;
+package cool.arch.patterns.observer;
 
 /*
  * #%L Patterns - Observable %% Copyright (C) 2015 CoolArch %% Licensed to the Apache Software
@@ -12,14 +12,16 @@ package cool.arch.patterns.observable;
  * specific language governing permissions and limitations under the License. #L%
  */
 
-public interface Observable<T> {
+public interface NotifyableObservable<T> extends Observable<T> {
 
-	void addObserver(Observer<T> observer);
+	void notifyObservers();
 
-	void removeObserver(Observer<T> observer);
+	void notifyObservers(T arg);
 
-	void clear();
+	public final class Factory {
 
-	Class<T> getPublishedType();
-
+		static <T> NotifyableObservable<T> create(final Class<T> publishedType) {
+			return new NotifyableObservableImpl<>(publishedType);
+		}
+	}
 }
