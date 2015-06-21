@@ -18,17 +18,14 @@ package cool.arch.patterns.observer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import cool.arch.patterns.observer.NotifyableObservable;
-import cool.arch.patterns.observer.Observer;
 
 /**
  * 
@@ -53,38 +50,11 @@ public class NotifyableObservableTest {
 
 	/**
 	 * Test method for
-	 * {@link cool.arch.patterns.observer.NotifyableObservable#notifyObservers()}.
-	 */
-	@Test
-	public final void testNotifyObservers() {
-		final Object publishable = new Object();
-
-		specimen.addObserver(observer0);
-		specimen.addObserver(observer1);
-		specimen.addObserver(observer2);
-
-		specimen.notifyObservers();
-
-		final List<Object> observed0 = observer0.getPublishedObjects();
-		final List<Object> observed1 = observer1.getPublishedObjects();
-		final List<Object> observed2 = observer2.getPublishedObjects();
-
-		assertEquals(1, observed0.size());
-		assertEquals(1, observed1.size());
-		assertEquals(1, observed2.size());
-
-		assertNull(observed0.get(0));
-		assertNull(observed1.get(0));
-		assertNull(observed2.get(0));
-	}
-
-	/**
-	 * Test method for
 	 * {@link cool.arch.patterns.observer.NotifyableObservable#notifyObservers(java.lang.Object)}
 	 * .
 	 */
 	@Test
-	public final void testNotifyObserversT() {
+	public final void testNotifyObservers() {
 		final Object publishable = new Object();
 
 		specimen.addObserver(observer0);
@@ -112,6 +82,13 @@ public class NotifyableObservableTest {
 	@Test
 	public final void testCreate() {
 		assertNotNull(specimen);
+	}
+
+	@SuppressWarnings("unused")
+	@Test(
+		expected = UnsupportedOperationException.class)
+	public final void testFactoryInstantiation() {
+		new NotifyableObservable.Factory();
 	}
 
 	/**

@@ -33,6 +33,8 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 
 	@Override
 	public void addObserver(Observer<T> observer) {
+		requireNonNull(observer, "observer shall not be null");
+
 		synchronized (lock) {
 			final List<Observer<T>> collected = collectObservers();
 			collected.add(observer);
@@ -43,6 +45,8 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 
 	@Override
 	public void removeObserver(Observer<T> observer) {
+		requireNonNull(observer, "observer shall not be null");
+
 		synchronized (lock) {
 			final List<Observer<T>> collected = collectObservers();
 			collected.remove(observer);
@@ -62,21 +66,14 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 	}
 
 	@Override
-	public void notifyObservers() {
-		notifyObservers(null);
-	}
-
-	@Override
 	public void notifyObservers(T published) {
+		requireNonNull(published, "published shall not be null");
+
 		Segment<Observer<T>> head = observers.get();
 
 		while (head != null) {
 			final Observer<T> observer = head.getItem();
-
-			if (observer != null) {
-				observer.onPublished(published);
-			}
-
+			observer.onPublished(published);
 			head = head.getTail();
 		}
 	}
@@ -88,11 +85,7 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 
 		while (head != null) {
 			final Observer<T> observer = head.getItem();
-
-			if (observer != null) {
-				collected.add(observer);
-			}
-
+			collected.add(observer);
 			head = head.getTail();
 		}
 

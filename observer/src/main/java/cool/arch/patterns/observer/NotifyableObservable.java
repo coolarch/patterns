@@ -14,14 +14,16 @@ package cool.arch.patterns.observer;
 
 public interface NotifyableObservable<T> extends Observable<T> {
 
-	void notifyObservers();
-
 	void notifyObservers(T arg);
 
 	public final class Factory {
 
 		static <T> NotifyableObservable<T> create(final Class<T> publishedType) {
 			return new NotifyableObservableImpl<>(publishedType);
+		}
+
+		Factory() {
+			throw new UnsupportedOperationException("Utility class only");
 		}
 	}
 }
