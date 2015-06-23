@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>cool.arch.patterns</groupId>
 	<artifactId>patterns</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>patterns</name>
 	<description>Idiomatic OOP and Functional patterns in Java</description>
@@ -285,12 +285,12 @@
 			<dependency>
 				<groupId>cool.arch.patterns</groupId>
 				<artifactId>observer</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>cool.arch.patterns</groupId>
 				<artifactId>license-resources</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
