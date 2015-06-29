@@ -52,8 +52,6 @@
 		<url>https://travis-ci.org/coolarch/patterns</url>
 	</ciManagement>
 	<modules>
-		<module>license-resources</module>
-		<module>codequality</module>
 		<module>observer</module>
 	</modules>
 	<dependencyManagement>
