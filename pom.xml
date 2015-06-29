@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>9</version>
+		<groupId>cool.arch.infrastructure</groupId>
+		<artifactId>base-pom</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<groupId>cool.arch.patterns</groupId>
 	<artifactId>patterns</artifactId>
@@ -41,7 +41,7 @@
 			<organization>CoolArch</organization>
 			<organizationUrl>http://www.arch.cool/</organizationUrl>
 			<timezone>-7</timezone>
-			<email>matthewwerny+coolarch@gmail.com</email>
+			<email>matthew.werny@arch.cool</email>
 			<roles>
 				<role>Project Lead</role>
 			</roles>
@@ -51,258 +51,17 @@
 		<system>TravisCI</system>
 		<url>https://travis-ci.org/coolarch/patterns</url>
 	</ciManagement>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.source.version>1.7</java.source.version>
-		<java.target.version>1.7</java.target.version>
-		<lib.junit.version>4.12</lib.junit.version>
-		<lib.mockito.version>1.10.19</lib.mockito.version>
-		<plugin.lint.version>0.0.8</plugin.lint.version>
-		<plugin.license.version>1.8</plugin.license.version>
-		<plugin.formatter.version>1.5.0</plugin.formatter.version>
-		<skipITs>true</skipITs>
-	</properties>
 	<modules>
 		<module>license-resources</module>
 		<module>codequality</module>
 		<module>observer</module>
 	</modules>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.lewisd</groupId>
-				<artifactId>lint-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18.1</version>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>integration-test</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>verify</id>
-						<goals>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<skip>${skipITs}</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.2</version>
-					<configuration>
-						<source>${java.source.version}</source>
-						<target>${java.target.version}</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>${plugin.license.version}</version>
-					<configuration>
-						<licenseName>apache2</licenseName>
-						<licenseResolver>classpath://license/resolver</licenseResolver>
-						<includes>
-							<include>**/*.java</include>
-						</includes>
-						<roots>
-							<root>src/main/java</root>
-							<root>src/test/java</root>
-							<root>src/main/resources</root>
-							<root>src/test/resources</root>
-						</roots>
-						<failOnMissingHeader>true</failOnMissingHeader>
-					</configuration>
-					<executions>
-						<execution>
-							<id>license-maven-plugin-check-file-header</id>
-							<goals>
-								<goal>check-file-header</goal>
-							</goals>
-							<phase>verify</phase>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>cool.arch.patterns</groupId>
-							<artifactId>license-resources</artifactId>
-							<version>${project.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<plugin>
-					<groupId>com.lewisd</groupId>
-					<artifactId>lint-maven-plugin</artifactId>
-					<version>${plugin.lint.version}</version>
-					<executions>
-						<execution>
-							<id>lint-maven-plugin-validate-check</id>
-							<goals>
-								<goal>check</goal>
-							</goals>
-							<phase>validate</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>com.marvinformatics.formatter</groupId>
-					<artifactId>formatter-maven-plugin</artifactId>
-					<version>${plugin.formatter.version}</version>
-					<executions>
-						<execution>
-							<id>formatter-maven-plugin-validate</id>
-							<goals>
-								<goal>validate</goal>
-							</goals>
-							<phase>validate</phase>
-						</execution>
-					</executions>
-					<configuration>
-						<aggregator>true</aggregator>
-						<basedir>${baseDir}</basedir>
-						<sourceDirectory>./</sourceDirectory>
-						<excludes>
-							<exclude>**/target/**</exclude>
-						</excludes>
-						<aggregator>true</aggregator>
-						<lineEnding>LF</lineEnding>
-						<configFile>classpath:/cool/arch/patterns/codequality/formatter/java.xml</configFile>
-						<configJsFile>classpath:/cool/arch/patterns/codequality/formatter/javascript.xml</configJsFile>
-					</configuration>
-					<dependencies>
-						<dependency>
-							<groupId>cool.arch.patterns</groupId>
-							<artifactId>codequality</artifactId>
-							<version>${project.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.lewisd</groupId>
-										<artifactId>lint-maven-plugin</artifactId>
-										<versionRange>[0.0.8,)</versionRange>
-										<goals>
-											<goal>check</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.2,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>cool.arch.patterns</groupId>
 				<artifactId>observer</artifactId>
-				<version>1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>cool.arch.patterns</groupId>
-				<artifactId>license-resources</artifactId>
-				<version>1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${lib.junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-core</artifactId>
-				<version>${lib.mockito.version}</version>
-				<scope>test</scope>
+				<version>1.0.0-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
