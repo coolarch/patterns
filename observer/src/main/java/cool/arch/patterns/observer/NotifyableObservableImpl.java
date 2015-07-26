@@ -18,12 +18,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 
 	private Class<T> publishedType;
 
-	private AtomicReference<Segment<Observer<T>>> observers = new AtomicReference<>();
+	private AtomicReference<Segment<Consumer<T>>> observers = new AtomicReference<>();
 
 	private Object lock = new Object();
 
@@ -32,25 +33,25 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 	}
 
 	@Override
-	public void addObserver(Observer<T> observer) {
+	public void addObserver(Consumer<T> observer) {
 		requireNonNull(observer, "observer shall not be null");
 
 		synchronized (lock) {
-			final List<Observer<T>> collected = collectObservers();
+			final List<Consumer<T>> collected = collectObservers();
 			collected.add(observer);
-			final Segment<Observer<T>> segments = toSegments(collected);
+			final Segment<Consumer<T>> segments = toSegments(collected);
 			observers.set(segments);
 		}
 	}
 
 	@Override
-	public void removeObserver(Observer<T> observer) {
+	public void removeObserver(Consumer<T> observer) {
 		requireNonNull(observer, "observer shall not be null");
 
 		synchronized (lock) {
-			final List<Observer<T>> collected = collectObservers();
+			final List<Consumer<T>> collected = collectObservers();
 			collected.remove(observer);
-			final Segment<Observer<T>> segments = toSegments(collected);
+			final Segment<Consumer<T>> segments = toSegments(collected);
 			observers.set(segments);
 		}
 	}
@@ -69,22 +70,22 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 	public void notifyObservers(T published) {
 		requireNonNull(published, "published shall not be null");
 
-		Segment<Observer<T>> head = observers.get();
+		Segment<Consumer<T>> head = observers.get();
 
 		while (head != null) {
-			final Observer<T> observer = head.getItem();
-			observer.onPublished(published);
+			final Consumer<T> observer = head.getItem();
+			observer.accept(published);
 			head = head.getTail();
 		}
 	}
 
-	private List<Observer<T>> collectObservers() {
-		final List<Observer<T>> collected = new LinkedList<>();
+	private List<Consumer<T>> collectObservers() {
+		final List<Consumer<T>> collected = new LinkedList<>();
 
-		Segment<Observer<T>> head = observers.get();
+		Segment<Consumer<T>> head = observers.get();
 
 		while (head != null) {
-			final Observer<T> observer = head.getItem();
+			final Consumer<T> observer = head.getItem();
 			collected.add(observer);
 			head = head.getTail();
 		}
@@ -92,10 +93,10 @@ class NotifyableObservableImpl<T> implements NotifyableObservable<T> {
 		return collected;
 	}
 
-	private Segment<Observer<T>> toSegments(final Collection<Observer<T>> items) {
-		Segment<Observer<T>> head = null;
+	private Segment<Consumer<T>> toSegments(final Collection<Consumer<T>> items) {
+		Segment<Consumer<T>> head = null;
 
-		for (final Observer<T> observer : items) {
+		for (final Consumer<T> observer : items) {
 			head = new Segment<>(observer, head);
 		}
 

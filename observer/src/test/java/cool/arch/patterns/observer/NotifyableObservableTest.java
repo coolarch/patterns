@@ -17,12 +17,12 @@ package cool.arch.patterns.observer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +34,11 @@ public class NotifyableObservableTest {
 
 	private NotifyableObservable<Object> specimen;
 
-	private final CountingObserver<Object> observer0 = new CountingObserver<>();
+	private final CountingConsumer<Object> observer0 = new CountingConsumer<>();
 
-	private final CountingObserver<Object> observer1 = new CountingObserver<>();
+	private final CountingConsumer<Object> observer1 = new CountingConsumer<>();
 
-	private final CountingObserver<Object> observer2 = new CountingObserver<>();
+	private final CountingConsumer<Object> observer2 = new CountingConsumer<>();
 
 	/**
 	 * @throws java.lang.Exception
@@ -175,12 +175,12 @@ public class NotifyableObservableTest {
 		assertSame(Object.class, specimen.getPublishedType());
 	}
 
-	public static final class CountingObserver<T> implements Observer<T> {
+	public static final class CountingConsumer<T> implements Consumer<T> {
 
 		private final List<T> publishedObjects = new LinkedList<>();
 
 		@Override
-		public void onPublished(T published) {
+		public void accept(T published) {
 			publishedObjects.add(published);
 		}
 

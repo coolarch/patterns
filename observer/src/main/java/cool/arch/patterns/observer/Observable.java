@@ -1,5 +1,7 @@
 package cool.arch.patterns.observer;
 
+import java.util.function.Consumer;
+
 /*
  * #%L Patterns - Observable %% Copyright (C) 2015 CoolArch %% Licensed to the Apache Software
  * Foundation (ASF) under one or more contributor license agreements. See the NOTICE file
@@ -14,9 +16,9 @@ package cool.arch.patterns.observer;
 
 public interface Observable<T> {
 
-	void addObserver(Observer<T> observer);
+	void addObserver(Consumer<T> observer);
 
-	void removeObserver(Observer<T> observer);
+	void removeObserver(Consumer<T> observer);
 
 	void clear();
 
